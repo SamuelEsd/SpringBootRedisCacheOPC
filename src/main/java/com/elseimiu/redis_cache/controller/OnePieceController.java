@@ -1,5 +1,7 @@
 package com.elseimiu.redis_cache.controller;
 
+import java.time.Duration;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
@@ -37,7 +39,7 @@ public class OnePieceController {
         if (!response.getStatusCode().equals(HttpStatusCode.valueOf(200))) {
           return response;
         }
-        valueOp.set(getKey(id.toString()), response.getBody());
+        valueOp.set(getKey(id.toString()), response.getBody(), Duration.ofSeconds(5));
       }
 
       HttpHeaders headers = new HttpHeaders();
